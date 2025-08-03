@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="UTF-8">
+  <title>画像判定アプリ</title>
+</head>
+<body>
+  <h2>画像判定します</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">判定</button>
+  </form>
+    {% if prediction %}
+    <h2>判定結果</h2>
+    <table border="1">
+        <tr>
+            <th>カテゴリ</th>
+            <th>確率</th>
+        </tr>
+        {% for pred in prediction %}
+        <tr>
+            <td>{{ pred.1 }}</td>
+            <td>{{ pred.2|floatformat:4 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+</body>
+</html>
